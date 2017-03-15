@@ -1,8 +1,8 @@
-#Stock Yasuo
-Your personal stock fund manager and advisor
+# Stock Yasuo
+Your personal stock fund manager and advisor, powered by AI
 
-##Installation
+## Installation
 `yarn install`
 
-##Start
+## Start
 `yarn start`

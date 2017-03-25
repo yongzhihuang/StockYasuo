@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import ReactDataGrid from 'react-data-grid';
 import { get, map } from 'lodash';
 
+import './stockList.css';
+
 import * as stockListActions from '../actions/stock-list-actions';
 
 class StockList extends Component {
@@ -39,19 +41,22 @@ class StockList extends Component {
       { key: 'price', name: 'Price' },
       { key: 'change', name: '% Change' },
       { key: 'marketCap', name: 'Market Cap' },
-      { key: 'yearRange', name: 'Year Range' }
+      { key: 'yearRange', name: 'Year Range' },
+      { key: 'insight', name: 'Insight' }
     ];
     let rows = [];
 
     if (stockList && stockList.length) {
       rows = map(stockList, (stock) => {
-        console.log(stock)
+        const gainOrLoss = (stock.Change.indexOf('-') === -1) ? 'gain' : 'loss';
+
         return {
           symbol: stock.symbol.toUpperCase(),
-          price: stock.LastTradePriceOnly,
-          change: stock.Change,
+          price: <span className={gainOrLoss}>{stock.LastTradePriceOnly}</span>,
+          change: <span className={gainOrLoss}>{stock.Change}</span>,
           marketCap: stock.MarketCapitalization,
-          yearRange: stock.YearRange
+          yearRange: stock.YearRange,
+          insight: <a href={`http://www.dataroma.com/m/stock.php?sym=${stock.symbol}`} target="_blank">Insight</a>
         };
       });
     }

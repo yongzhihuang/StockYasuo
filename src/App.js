@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>Stock Yasuo</h2>
+          <img className="App-logo" src="https://pbs.twimg.com/media/CHvYTQOUsAAHMye.png" />
         </div>
         <StockList />
       </div>

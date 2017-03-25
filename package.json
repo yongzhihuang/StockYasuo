@@ -6,8 +6,8 @@
     "react-scripts": "0.8.4"
   },
   "dependencies": {
-    "axios": "0.15.3",
-    "bluebird": "3.5.0",
+    "axios": "^0.15.3",
+    "bluebird": "^3.5.0",
     "install": "^0.8.7",
     "lodash": "4.17.4",
     "npm": "^4.4.4",
@@ -16,6 +16,7 @@
     "react-dom": "15.4.1",
     "react-redux": "5.0.1",
     "redux": "3.6.0",
+    "redux-thunk": "^2.2.0",
     "yahoo-finance": "0.2.16"
   },
   "scripts": {

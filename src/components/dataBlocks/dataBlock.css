@@ -1,12 +1,12 @@
 .data-blocks-wrapper {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .data-block {
   padding: 25px;
-  margin: 15px 0;
+  margin: 15px 10px;
   background-color: #337ab7;
   color: white;
   font-size: 20px;

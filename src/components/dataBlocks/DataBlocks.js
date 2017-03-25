@@ -7,7 +7,7 @@ class DataBlock extends Component {
     return (
       <div className="data-blocks-wrapper">
         <div className="data-block">
-          Total Price Change: ${data.totalPriceChange}
+          Total Price Change: $ {data.totalPriceChange}
         </div>
         <div className="data-block">
           Total % Change: {data.totalPercentChange} %

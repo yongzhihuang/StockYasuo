@@ -31,7 +31,21 @@ class StockList extends Component {
   }
 
   componentWillMount() {
+    this.fetchStockPrices();
+  }
+
+  componentDidMount() {
+    this.updateStockPricesInterval = setInterval(() => {
+      this.fetchStockPrices();
+    }, 60000);
+  }
+
+  fetchStockPrices() {
     this.props.actions.fetchStockList(this.state.stockList);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.updateStockPricesInterval);
   }
 
   render() {
@@ -66,10 +80,11 @@ class StockList extends Component {
       });
     }
     const blocksData = {
-      totalPriceChange,
+      totalPriceChange: round(totalPriceChange, 2),
       totalPercentChange: round(totalPercentChange, 2)
     };
 
+    document.title = `${totalPriceChange} Stock Yasuo - PentaTools`;
     const rowGetter = rowNumber => rows[rowNumber];
     return (
       <div className="stocklist-wrapper">

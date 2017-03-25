@@ -13,7 +13,17 @@ class StockList extends Component {
       stockList: [
         'aapl',
         'amd',
-        'nvda'
+        'brk-b',
+        'msft',
+        'nflx',
+        'fb',
+        'googl',
+        'adbe',
+        'nvda',
+        'amd',
+        'bac',
+        'v',
+        'shop'
       ]
     }
   }
@@ -24,14 +34,24 @@ class StockList extends Component {
 
   render() {
     const stockList = get(this.props, 'stockList');
-    const columns = [{ key: 'symbol', name: 'Symbol' }, { key: 'price', name: 'Price' }];
+    const columns = [
+      { key: 'symbol', name: 'Symbol' },
+      { key: 'price', name: 'Price' },
+      { key: 'change', name: '% Change' },
+      { key: 'marketCap', name: 'Market Cap' },
+      { key: 'yearRange', name: 'Year Range' }
+    ];
     let rows = [];
 
     if (stockList && stockList.length) {
       rows = map(stockList, (stock) => {
+        console.log(stock)
         return {
-          symbol: stock.symbol,
-          price: stock.LastTradePriceOnly
+          symbol: stock.symbol.toUpperCase(),
+          price: stock.LastTradePriceOnly,
+          change: stock.Change,
+          marketCap: stock.MarketCapitalization,
+          yearRange: stock.YearRange
         };
       });
     }

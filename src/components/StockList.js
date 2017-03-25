@@ -38,10 +38,10 @@ class StockList extends Component {
     const stockList = get(this.props, 'stockList');
     const columns = [
       { key: 'symbol', name: 'Symbol' },
-      { key: 'price', name: 'Price' },
-      { key: 'change', name: '% Change' },
+      { key: 'price', name: 'Price (USD)' },
+      { key: 'changeAmt', name: '$ Change' },
+      { key: 'changePercent', name: '% Change' },
       { key: 'marketCap', name: 'Market Cap' },
-      { key: 'yearRange', name: 'Year Range' },
       { key: 'insight', name: 'Insight' }
     ];
     let rows = [];
@@ -49,14 +49,18 @@ class StockList extends Component {
     if (stockList && stockList.length) {
       rows = map(stockList, (stock) => {
         const gainOrLoss = (stock.Change.indexOf('-') === -1) ? 'gain' : 'loss';
+        const stockSymbol = stock.symbol.toUpperCase();
+        const price = stock.BidRealtime || stock.LastTradePriceOnly;
 
         return {
-          symbol: stock.symbol.toUpperCase(),
-          price: <span className={gainOrLoss}>{stock.LastTradePriceOnly}</span>,
-          change: <span className={gainOrLoss}>{stock.Change}</span>,
+          symbol: <a href={`https://stocktwits.com/symbol/AAPL?q=${stockSymbol}`} target="_blank">{stockSymbol}</a>,
+          price: <span className={gainOrLoss}>${price}</span>,
+          changeAmt: <span className={gainOrLoss}>{stock.Change}</span>,
+          changePercent: <span className={gainOrLoss}>{stock.ChangeinPercent}</span>,
           marketCap: stock.MarketCapitalization,
-          yearRange: stock.YearRange,
-          insight: <a href={`http://www.dataroma.com/m/stock.php?sym=${stock.symbol}`} target="_blank">Insight</a>
+          insight: <div>
+            <a href={`http://www.dataroma.com/m/stock.php?sym=${stock.symbol}`} target="_blank">Ownership</a> <a href={`http://www.dataroma.com/m/activity.php?sym=${stock.symbol}&typ=a`} target="_blank">Activity</a> <a href={`http://www.dataroma.com/m/ins/ins.php?t=y&&sym=${stock.symbol}&o=fd&d=d`} target="_blank">Insider</a>
+            </div>
         };
       });
     }

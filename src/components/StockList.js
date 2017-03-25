@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReactDataGrid from 'react-data-grid';
-import { get, map } from 'lodash';
-
+import { get, map, toNumber, round } from 'lodash';
 import './stockList.css';
 
+import DataBlocks from './dataBlocks/DataBlocks';
 import * as stockListActions from '../actions/stock-list-actions';
 
 class StockList extends Component {
@@ -39,23 +39,24 @@ class StockList extends Component {
     const columns = [
       { key: 'symbol', name: 'Symbol' },
       { key: 'price', name: 'Price (USD)' },
-      { key: 'changeAmt', name: '$ Change' },
       { key: 'changePercent', name: '% Change' },
       { key: 'marketCap', name: 'Market Cap' },
       { key: 'insight', name: 'Insight' }
     ];
     let rows = [];
+    let totalPriceChange = 0;
+    let totalPercentChange = 0;
 
     if (stockList && stockList.length) {
       rows = map(stockList, (stock) => {
         const gainOrLoss = (stock.Change.indexOf('-') === -1) ? 'gain' : 'loss';
         const stockSymbol = stock.symbol.toUpperCase();
         const price = stock.BidRealtime || stock.LastTradePriceOnly;
-
+        totalPriceChange += toNumber(stock.Change);
+        totalPercentChange += toNumber(stock.ChangeinPercent.replace('%', ''));
         return {
           symbol: <a href={`https://stocktwits.com/symbol/AAPL?q=${stockSymbol}`} target="_blank">{stockSymbol}</a>,
-          price: <span className={gainOrLoss}>${price}</span>,
-          changeAmt: <span className={gainOrLoss}>{stock.Change}</span>,
+          price: <span className={gainOrLoss}>${price} ({stock.Change})</span>,
           changePercent: <span className={gainOrLoss}>{stock.ChangeinPercent}</span>,
           marketCap: stock.MarketCapitalization,
           insight: <div>
@@ -64,10 +65,15 @@ class StockList extends Component {
         };
       });
     }
+    const blocksData = {
+      totalPriceChange,
+      totalPercentChange: round(totalPercentChange, 2)
+    };
 
     const rowGetter = rowNumber => rows[rowNumber];
     return (
-      <div>
+      <div className="stocklist-wrapper">
+        <DataBlocks data={blocksData} />
         <ReactDataGrid
         columns={columns}
         rowGetter={rowGetter}

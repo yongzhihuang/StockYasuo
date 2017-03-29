@@ -5,7 +5,7 @@ import ReactDataGrid from 'react-data-grid';
 import { get, map, toNumber, round } from 'lodash';
 import './stockList.css';
 
-import DataBlocks from './dataBlocks/DataBlocks';
+import DataBlocks from './DataBlocks/DataBlocks';
 import * as stockListActions from '../actions/stock-list-actions';
 
 class StockList extends Component {
@@ -79,21 +79,26 @@ class StockList extends Component {
         };
       });
     }
+
+    totalPriceChange = round(totalPriceChange, 2);
+    totalPercentChange = round(totalPercentChange, 2);
     const blocksData = {
-      totalPriceChange: round(totalPriceChange, 2),
-      totalPercentChange: round(totalPercentChange, 2)
+      totalPriceChange,
+      totalPercentChange
     };
 
-    document.title = `${totalPriceChange} Stock Yasuo - PentaTools`;
+    const priceDisplay = (totalPriceChange > 0) ? `+$${totalPriceChange}` : `-$${totalPriceChange}`;
+
+    document.title = `${priceDisplay} Stock Yasuo - PentaTools`;
     const rowGetter = rowNumber => rows[rowNumber];
     return (
       <div className="stocklist-wrapper">
-        <DataBlocks data={blocksData} />
+        <DataBlocks data={blocksData} stockList={stockList} />
         <ReactDataGrid
         columns={columns}
         rowGetter={rowGetter}
         rowsCount={rows.length}
-        minHeight={500} />
+        minHeight={800} />
       </div>
     );
   }

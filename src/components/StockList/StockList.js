@@ -53,8 +53,6 @@ class StockList extends Component {
     let totalPriceChange = 0;
     let totalPercentChange = 0;
 
-    const priceDisplay = (totalPriceChange > 0) ? `+$${totalPriceChange}` : `-$${totalPriceChange}`;
-    document.title = `${priceDisplay} Stock Yasuo - PentaTools`;
     const tableHeaders = ['Company', 'Price (USD)', '%Change', 'Market Cap', 'Insight'];
     let tableBody = null;
 
@@ -79,6 +77,8 @@ class StockList extends Component {
       });
     }
 
+    const priceDisplay = (totalPriceChange > 0) ? `+$${totalPriceChange}` : `-$${totalPriceChange}`;
+    document.title = `${priceDisplay} Stock Yasuo - PentaTools`;
     totalPriceChange = round(totalPriceChange, 2);
     totalPercentChange = round(totalPercentChange, 2);
     const blocksData = {

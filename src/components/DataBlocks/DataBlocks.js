@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { map, max, min, toNumber, filter, get } from 'lodash';
-import './dataBlock.css';
+import './DataBlock.css';
 
 class DataBlock extends Component {
   render() {

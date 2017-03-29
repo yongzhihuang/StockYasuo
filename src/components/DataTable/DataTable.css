@@ -1,0 +1,51 @@
+.data-table {
+  background-color: white;
+  font-size: 12px;
+  text-align: center;
+  width: 100%;
+}
+
+.data-table tr {
+  color: $black;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.data-table tr.gray {
+  background-color: #efefef;
+}
+
+.data-table tr.featured {
+  background-color: yellow;
+}
+
+.data-table tr:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+.data-table tr th {
+  border-bottom: solid 1px #f9f9f9;
+  padding: 15px 0;
+}
+
+.data-table tr img {
+  cursor: pointer;
+}
+
+.data-table td {
+  color: $black;
+  font-family: sans-serif;
+  font-size: 15px;
+  max-width: 500px;
+  padding: 20px;
+}
+
+.data-table td a {
+  color: $black;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.data-table td.wide-column {
+  width: 250px;
+}

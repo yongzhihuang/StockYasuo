@@ -18,7 +18,7 @@ function fetchSingleStock(symbol) {
       if (result.status === 200) {
         resolve(get(result, 'data.query.results.quote'));
       }
-      resolve(null);
+      resolve({});
     })
     .catch((error) => {
       console.error(error);

@@ -53,7 +53,7 @@ class StockList extends Component {
     let totalPriceChange = 0;
     let totalPercentChange = 0;
 
-    const tableHeaders = ['Company', 'Price (USD)', '%Change', 'Market Cap', 'Insight'];
+    const tableHeaders = ['Company', 'Price (USD)', '%Change', 'Year Growth', 'Insight'];
     let tableBody = null;
 
     if (stockList && stockList.length) {
@@ -65,10 +65,10 @@ class StockList extends Component {
         totalPercentChange += toNumber(stock.ChangeinPercent.replace('%', ''));
         return (
           <tr key={idx}>
-            <td><a href={`https://stocktwits.com/symbol/AAPL?q=${stockSymbol}`} target="_blank">{stock.Name} ({stockSymbol})</a></td>
+            <td><a href={`http://finance.yahoo.com/quote/${stockSymbol}`} target="_blank">{stock.Name} ({stockSymbol})</a></td>
             <td><span className={gainOrLoss}>${price} ({stock.Change})</span></td>
             <td><span className={gainOrLoss}>{stock.ChangeinPercent}</span></td>
-            <td>{stock.MarketCapitalization}</td>
+            <td>{stock.ChangeFromYearLow} ({stock.PercentChangeFromYearLow}%)</td>
             <td><div>
             <a href={`http://www.dataroma.com/m/stock.php?sym=${stock.symbol}`} target="_blank">Ownership</a> <a href={`http://www.dataroma.com/m/activity.php?sym=${stock.symbol}&typ=a`} target="_blank">Activity</a> <a href={`http://www.dataroma.com/m/ins/ins.php?t=y&&sym=${stock.symbol}&o=fd&d=d`} target="_blank">Insider</a>
             </div></td>

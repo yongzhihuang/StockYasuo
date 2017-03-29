@@ -69,7 +69,7 @@ class StockList extends Component {
         totalPriceChange += toNumber(stock.Change);
         totalPercentChange += toNumber(stock.ChangeinPercent.replace('%', ''));
         return {
-          symbol: <a href={`https://stocktwits.com/symbol/AAPL?q=${stockSymbol}`} target="_blank">{stockSymbol}</a>,
+          symbol: <a href={`https://stocktwits.com/symbol/AAPL?q=${stockSymbol}`} target="_blank">{stock.Name} ({stockSymbol})</a>,
           price: <span className={gainOrLoss}>${price} ({stock.Change})</span>,
           changePercent: <span className={gainOrLoss}>{stock.ChangeinPercent}</span>,
           marketCap: stock.MarketCapitalization,
@@ -94,6 +94,7 @@ class StockList extends Component {
     return (
       <div className="stocklist-wrapper">
         <DataBlocks data={blocksData} stockList={stockList} />
+
         <ReactDataGrid
         columns={columns}
         rowGetter={rowGetter}

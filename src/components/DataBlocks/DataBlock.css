@@ -16,3 +16,9 @@
 li.data-block {
   padding: 5px 0;
 }
+
+@media all and (max-width: 636px) {
+  .data-blocks-wrapper {
+    flex-direction: column
+  }
+}

@@ -10,13 +10,16 @@ class BarChartViz extends Component {
 
     const margin = {top: 20, right: 20, bottom: 30, left: 40};
     return (
-      <BarChart
-      ylabel='Price Change'
-      width={800}
-      height={200}
-      margin={margin}
-      data={this.props.data}
-    />);
+      <div className="barchart-viz">
+        <BarChart
+          ylabel='Price Change'
+          width={800}
+          height={200}
+          margin={margin}
+          data={this.props.data}
+        />
+      </div>
+    );
   }
 }
 

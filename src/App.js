@@ -6,7 +6,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img className="App-logo" role="presentation" src="https://pbs.twimg.com/media/CHvYTQOUsAAHMye.png" />
+          <h1 className="App-intro">StockYasuo</h1>
         </div>
         {this.props.children}
       </div>

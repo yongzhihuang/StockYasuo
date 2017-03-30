@@ -7,7 +7,7 @@ import StockListPage from './pages/StockList/StockListPage';
 
 const Routes = (props) => (
  <Router {...props}>
-   <Route path="/" component={App}>
+   <Route path="/" component={StockListPage}>
       <IndexRoute component={StockListPage} />
       <Route path="*" component={NotFoundPage} />
    </Route>

@@ -18,7 +18,7 @@ class DataBlock extends Component {
       console.log(toNumber(stock.Change))
         return {
           text: stock.symbol.toUpperCase(),
-          value: toNumber(stock.Change)
+          value: toNumber(stock.ChangeinPercent.replace('%', ''))
         }
       }
     );

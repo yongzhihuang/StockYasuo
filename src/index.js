@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
+import { browserHistory } from 'react-router';
+import Routes from './routes';
+
 import './index.css';
 
 import { Provider } from 'react-redux';
@@ -10,7 +13,7 @@ const StoreInstance = Store();
 
 ReactDOM.render(
   <Provider store={StoreInstance}>
-    <App />
+    <Routes history={browserHistory} />
   </Provider>,
   document.getElementById('root')
 );

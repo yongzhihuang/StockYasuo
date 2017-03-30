@@ -13,12 +13,15 @@ class StockList extends Component {
     super(props);
     this.state = {
       stockList: [
+        'amzn',
         'aapl',
         'amd',
+        'mo',
         'brk-b',
         'msft',
         'nflx',
         'fb',
+        'gs',
         'googl',
         'adbe',
         'nvda',
@@ -26,6 +29,11 @@ class StockList extends Component {
         'bac',
         'v',
         'shop'
+      ],
+      exchangeList: [
+        '%5EGSPC',
+        '',
+        '%5EIXIC'
       ]
     }
   }
@@ -53,7 +61,7 @@ class StockList extends Component {
     let totalPriceChange = 0;
     let totalPercentChange = 0;
 
-    const tableHeaders = ['Company', 'Price (USD)', '%Change', 'Year Growth', 'Insight'];
+    const tableHeaders = ['Company', 'Price (USD)', '%Change', 'One Year Growth', 'Insight'];
     let tableBody = null;
 
     if (stockList && stockList.length) {
@@ -77,10 +85,10 @@ class StockList extends Component {
       });
     }
 
-    const priceDisplay = (totalPriceChange > 0) ? `+$${totalPriceChange}` : `-$${totalPriceChange}`;
-    document.title = `${priceDisplay} Stock Yasuo - PentaTools`;
     totalPriceChange = round(totalPriceChange, 2);
     totalPercentChange = round(totalPercentChange, 2);
+    const priceDisplay = (totalPriceChange > 0) ? `+$${totalPriceChange}` : `-$${totalPriceChange}`;
+    document.title = `${priceDisplay} Stock Yasuo - PentaTools`;
     const blocksData = {
       totalPriceChange,
       totalPercentChange

@@ -6,6 +6,7 @@ import './StockList.css';
 
 import DataBlocks from '../DataBlocks/DataBlocks';
 import DataTable from '../DataTable/DataTable';
+
 import * as stockListActions from '../../actions/stock-list-actions';
 
 class StockList extends Component {

@@ -53,6 +53,7 @@
     "lodash": "4.17.4",
     "npm": "^4.4.4",
     "react": "15.4.1",
+    "react-bar-chart": "^0.1.1",
     "react-data-grid": "2.0.18",
     "react-dom": "15.4.1",
     "react-redux": "5.0.1",

@@ -9,11 +9,6 @@ class DataBlock extends Component {
     if (!data) {
       return [];
     }
-    // Expects data to be in this format
-    // const barchartData = [
-    //   {text: 'Man', value: 500},
-    //   {text: 'Woman', value: 300}
-    // ];
 
     return sortBy(map(data, stock => {
         if (!stock.symbol || !stock.ChangeinPercent) {
@@ -50,8 +45,10 @@ class DataBlock extends Component {
     const totalPercentChange = data.totalPercentChange;
 
     const priceChangeList = map(stockList, stock => toNumber(stock.Change));
+
     const maxPriceChange = max(priceChangeList);
     const maxPriceChangeCompany = filter(stockList, stock => (toNumber(stock.Change) === maxPriceChange));
+
     const minPriceChange = min(priceChangeList);
     const minPriceChangeCompany = filter(stockList, stock => (toNumber(stock.Change) === minPriceChange));
 
@@ -63,8 +60,8 @@ class DataBlock extends Component {
     : <span className="loss">-${totalPercentChange}%</span>;
 
     const gainerDisplay = (maxPriceChange > 0) ?
-    <span className="gain"><b>{get(maxPriceChangeCompany, '[0].symbol')}</b> (+${maxPriceChange})</span>
-    : <span className="loss"><b>{get(maxPriceChangeCompany, '[0].symbol')}</b> (-${maxPriceChange})</span>;
+    <span className="gain"><b>{get(maxPriceChangeCompany, '[0].symbol').toUpperCase()}</b> (+${maxPriceChange})</span>
+    : <span className="loss"><b>{get(maxPriceChangeCompany, '[0].symbol').toUpperCase()}</b> (-${maxPriceChange})</span>;
 
     const loserDisplay = (minPriceChange > 0) ?
     <span className="gain"><b>{get(minPriceChangeCompany, '[0].symbol')}</b> (+${minPriceChange})</span>

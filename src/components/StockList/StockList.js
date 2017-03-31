@@ -56,28 +56,14 @@ class StockList extends Component {
     clearInterval(this.updateStockPricesInterval);
   }
 
-  render() {
-    const stockList = get(this.props, 'stockList');
-
-    if (!stockList || !stockList.length) {
-      return <h1>Loading...</h1>
-    }
-
-    let totalPriceChange = 0;
-    let totalPercentChange = 0;
-
-    const tableHeaders = ['Company', 'Price (USD)', '%Change', 'One Year Growth', 'Insight'];
-    let tableBody = null;
-
-    tableBody = map(stockList, (stock, idx) => {
+  buildTableBody(stockList) {
+    return map(stockList, (stock, idx) => {
       if (!stock.Change || !stock.ChangeinPercent) {
         return <tr key={idx}></tr>;
       }
       const gainOrLoss = (stock.Change.indexOf('-') === -1) ? 'gain' : 'loss';
       const stockSymbol = stock.symbol.toUpperCase();
       const price = stock.BidRealtime || stock.LastTradePriceOnly;
-      totalPriceChange += toNumber(stock.Change);
-      totalPercentChange += toNumber(stock.ChangeinPercent.replace('%', ''));
       return (
         <tr key={idx}>
           <td><a href={`http://finance.yahoo.com/quote/${stockSymbol}`} target="_blank">{stock.Name} ({stockSymbol})</a></td>
@@ -92,21 +78,46 @@ class StockList extends Component {
         </tr>
       );
     });
+  }
+
+  computeTotalChange(stockList) {
+    let totalPriceChange = 0;
+    let totalPercentChange = 0;
+    stockList.forEach((stock) => {
+      totalPriceChange += toNumber(stock.Change);
+      totalPercentChange += toNumber(stock.ChangeinPercent.replace('%', ''));
+    });
 
     totalPriceChange = round(totalPriceChange, 2);
     totalPercentChange = round(totalPercentChange, 2);
 
-    const priceDisplay = (totalPriceChange >= 0) ? `+$${totalPriceChange}` : `-$${totalPriceChange}`;
-    document.title = `${priceDisplay} Stock Yasuo - PentaTools`;
-
-    const blocksData = {
+    return {
       totalPriceChange,
       totalPercentChange
     };
+  }
+
+  render() {
+    const stockList = get(this.props, 'stockList');
+
+    if (!stockList || !stockList.length) {
+      return <h1>Loading...</h1>
+    }
+
+    const tableHeaders = ['Company', 'Price (USD)', '%Change', 'Year to Year Growth', 'Insight'];
+    const tableBody = this.buildTableBody(stockList);
+    const stocksChangeData = this.computeTotalChange(stockList);
+
+    // Change title to reflect stock amount
+    const priceDisplay = (stocksChangeData.totalPriceChange >= 0) ? `+$${stocksChangeData.totalPriceChange}` : `-$${stocksChangeData.totalPriceChange}`;
+    document.title = `${priceDisplay} Stock Yasuo - PentaTools`;
 
     return (
       <div className="stocklist-wrapper">
-        <DataBlocks data={blocksData} stockList={stockList} />
+        <div className="App-header">
+          <h1 className="App-intro">StockYasuo</h1>
+        </div>
+        <DataBlocks data={stocksChangeData} stockList={stockList} />
         <DataTable tableHeaders={tableHeaders} tableBody={tableBody} />
       </div>
     );

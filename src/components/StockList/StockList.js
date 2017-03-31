@@ -28,8 +28,7 @@ class StockList extends Component {
         'nvda',
         'amd',
         'bac',
-        'v',
-        'shop'
+        'v'
       ],
       exchangeList: [
         '%5EGSPC',
@@ -59,37 +58,47 @@ class StockList extends Component {
 
   render() {
     const stockList = get(this.props, 'stockList');
+
+    if (!stockList || !stockList.length) {
+      return <h1>Loading...</h1>
+    }
+
     let totalPriceChange = 0;
     let totalPercentChange = 0;
 
     const tableHeaders = ['Company', 'Price (USD)', '%Change', 'One Year Growth', 'Insight'];
     let tableBody = null;
 
-    if (stockList && stockList.length) {
-      tableBody = map(stockList, (stock, idx) => {
-        const gainOrLoss = (stock.Change.indexOf('-') === -1) ? 'gain' : 'loss';
-        const stockSymbol = stock.symbol.toUpperCase();
-        const price = stock.BidRealtime || stock.LastTradePriceOnly;
-        totalPriceChange += toNumber(stock.Change);
-        totalPercentChange += toNumber(stock.ChangeinPercent.replace('%', ''));
-        return (
-          <tr key={idx}>
-            <td><a href={`http://finance.yahoo.com/quote/${stockSymbol}`} target="_blank">{stock.Name} ({stockSymbol})</a></td>
-            <td><span className={gainOrLoss}>${price} ({stock.Change})</span></td>
-            <td><span className={gainOrLoss}>{stock.ChangeinPercent}</span></td>
-            <td>{stock.ChangeFromYearLow} ({stock.PercentChangeFromYearLow}%)</td>
-            <td><div>
+    tableBody = map(stockList, (stock, idx) => {
+      if (!stock.Change || !stock.ChangeinPercent) {
+        return <tr key={idx}></tr>;
+      }
+      const gainOrLoss = (stock.Change.indexOf('-') === -1) ? 'gain' : 'loss';
+      const stockSymbol = stock.symbol.toUpperCase();
+      const price = stock.BidRealtime || stock.LastTradePriceOnly;
+      totalPriceChange += toNumber(stock.Change);
+      totalPercentChange += toNumber(stock.ChangeinPercent.replace('%', ''));
+      return (
+        <tr key={idx}>
+          <td><a href={`http://finance.yahoo.com/quote/${stockSymbol}`} target="_blank">{stock.Name} ({stockSymbol})</a></td>
+          <td><span className={gainOrLoss}>${price} ({stock.Change})</span></td>
+          <td><span className={gainOrLoss}>{stock.ChangeinPercent}</span></td>
+          <td>{stock.ChangeFromYearLow} ({stock.PercentChangeFromYearLow})</td>
+          <td>
+            <div>
             <a href={`http://www.dataroma.com/m/stock.php?sym=${stock.symbol}`} target="_blank">Ownership</a> <a href={`http://www.dataroma.com/m/activity.php?sym=${stock.symbol}&typ=a`} target="_blank">Activity</a> <a href={`http://www.dataroma.com/m/ins/ins.php?t=y&&sym=${stock.symbol}&o=fd&d=d`} target="_blank">Insider</a>
-            </div></td>
-          </tr>
-        );
-      });
-    }
+            </div>
+          </td>
+        </tr>
+      );
+    });
 
     totalPriceChange = round(totalPriceChange, 2);
     totalPercentChange = round(totalPercentChange, 2);
-    const priceDisplay = (totalPriceChange > 0) ? `+$${totalPriceChange}` : `-$${totalPriceChange}`;
+
+    const priceDisplay = (totalPriceChange >= 0) ? `+$${totalPriceChange}` : `-$${totalPriceChange}`;
     document.title = `${priceDisplay} Stock Yasuo - PentaTools`;
+
     const blocksData = {
       totalPriceChange,
       totalPercentChange

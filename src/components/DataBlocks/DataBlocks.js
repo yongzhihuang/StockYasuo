@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { map, max, min, toNumber, filter, get } from 'lodash';
+import { map, max, min, toNumber, filter, get, sortBy } from 'lodash';
 import BarChart from '../BarChart/BarChart';
 import './DataBlock.css';
 
 class DataBlock extends Component {
-  generateBarChartData(data) {
+
+  generateBarChartData(data, status) {
     if (!data) {
       return [];
     }
@@ -14,14 +15,28 @@ class DataBlock extends Component {
     //   {text: 'Woman', value: 300}
     // ];
 
-    return map(data, stock => {
-      console.log(toNumber(stock.Change))
+    return sortBy(map(data, stock => {
+        if (!stock.symbol || !stock.ChangeinPercent) {
+          return {
+            text: 'error',
+            value: 0
+          }
+        }
+
+        const condition = (status === 'gains') ? (toNumber(stock.ChangeinPercent.replace('%', '') < 0)) : (toNumber(stock.ChangeinPercent.replace('%', '') > 0));
+        if (condition) {
+          return {
+            text: 'iono',
+            value: 0
+          };
+        }
+
         return {
           text: stock.symbol.toUpperCase(),
-          value: toNumber(stock.ChangeinPercent.replace('%', ''))
+          value: Math.abs(toNumber(stock.ChangeinPercent.replace('%', '')))
         }
       }
-    );
+    ), (obj) => -obj.value);
   }
 
   render() {
@@ -71,9 +86,22 @@ class DataBlock extends Component {
             The biggest loser today comes from {loserDisplay}
           </li>
         </ul>
+
         <ul>
           <li className="data-block">
-             <BarChart data={this.generateBarChartData(stockList)} />
+            <h2>Winners</h2>
+          </li>
+          <li className="data-block">
+             <BarChart data={this.generateBarChartData(stockList, 'gains')} color="green" />
+          </li>
+        </ul>
+
+        <ul>
+          <li className="data-block">
+            <h2>Losers</h2>
+          </li>
+          <li className="data-block">
+             <BarChart data={this.generateBarChartData(stockList, 'losses')} color="red" />
           </li>
         </ul>
       </div>

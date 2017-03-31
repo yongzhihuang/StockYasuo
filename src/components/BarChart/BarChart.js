@@ -7,13 +7,13 @@ class BarChartViz extends Component {
     if (!this.props.data) {
       return null;
     }
-
+console.log(this.props.data);
     const margin = {top: 20, right: 20, bottom: 30, left: 40};
     return (
       <div className="barchart-viz">
         <BarChart
           ylabel='Price Change'
-          width={800}
+          width={400}
           height={200}
           margin={margin}
           data={this.props.data}

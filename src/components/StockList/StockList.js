@@ -127,12 +127,13 @@ class StockList extends Component {
       <div className="stocklist-wrapper">
         <div className="App-header">
           <h1 className="App-intro">StockYasuo</h1>
+          <h2 className="App-desc">Stock Manager, AI Advisor</h2>
         </div>
         <div className="center-wrap">
           <div className="btn-cta" onClick={this.onAddStock}>Add Stock</div>
         </div>
+        <DataBlocks data={stocksChangeData} stockList={stockList} />
         <DataTable tableHeaders={tableHeaders} tableBody={tableBody} />
-        {/*<DataBlocks data={stocksChangeData} stockList={stockList} />*/}
 
       </div>
     );

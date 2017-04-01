@@ -84,7 +84,7 @@ class DataBlock extends Component {
           </li>
         </ul>
 
-        <ul>
+        {/*<ul>
           <li className="data-block">
             <h2>Winners</h2>
           </li>
@@ -100,7 +100,7 @@ class DataBlock extends Component {
           <li className="data-block">
              <BarChart data={this.generateBarChartData(stockList, 'losses')} color="red" />
           </li>
-        </ul>
+        </ul>*/}
       </div>
     );
   }

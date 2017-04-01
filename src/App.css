@@ -14,11 +14,17 @@
   color: white;
 }
 
-
 .App-intro {
-  font-size: large;
+  font-size: 25px;
   text-align: center;
   font-weight: bold;
+  margin-bottom: 0px;
+}
+
+.App-desc {
+  text-align: center;
+  font-size: 15px;
+  font-weight: normal;
 }
 
 @keyframes App-logo-spin {

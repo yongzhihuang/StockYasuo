@@ -25,7 +25,7 @@ function fetchStockListFailure(error) {
 }
 
 export function fetchStockList() {
-  const stockList = fetchStockSymbols();
+  const stockList = fetchStockSymbols().sort();
   return (dispatch) => {
     dispatch(fetchingStockList(true));
     fetchStockUtil(stockList)

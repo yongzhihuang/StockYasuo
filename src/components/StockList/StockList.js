@@ -14,6 +14,7 @@ class StockList extends Component {
   constructor(props) {
     super(props);
     this.onAddStock = this.onAddStock.bind(this);
+    this.onRemoveStock = this.onRemoveStock.bind(this);
     this.state = {
       stockList: [],
       exchangeList: [
@@ -44,7 +45,7 @@ class StockList extends Component {
 
   buildTableBody(stockList) {
     return map(stockList, (stock, idx) => {
-      if (!stock.Change || !stock.ChangeinPercent) {
+      if (!stock.Change || !stock.ChangeinPercent || !stock.symbol) {
         return <tr key={idx}></tr>;
       }
       const gainOrLoss = (stock.Change.indexOf('-') === -1) ? 'gain' : 'loss';
@@ -60,6 +61,9 @@ class StockList extends Component {
             <div>
             <a href={`http://www.dataroma.com/m/stock.php?sym=${stock.symbol}`} target="_blank">Ownership</a> <a href={`http://www.dataroma.com/m/activity.php?sym=${stock.symbol}&typ=a`} target="_blank">Activity</a> <a href={`http://www.dataroma.com/m/ins/ins.php?t=y&&sym=${stock.symbol}&o=fd&d=d`} target="_blank">Insider</a>
             </div>
+          </td>
+          <td>
+            <div className="btn-small" onClick={()=>this.onRemoveStock(stock.symbol)}>-</div>
           </td>
         </tr>
       );
@@ -87,8 +91,12 @@ class StockList extends Component {
 
   onAddStock() {
     const stock = window.prompt('Enter stock symbol');
-
     this.props.actions.addStockSymbolToList(stock);
+  }
+
+  onRemoveStock(symbol) {
+    console.log(symbol);
+    this.props.actions.removeStockSymbolFromList(symbol)
   }
 
   render() {
@@ -107,7 +115,7 @@ class StockList extends Component {
         </div>
       )
     }
-    const tableHeaders = ['Company', 'Price (USD)', '%Change', 'Year to Year Growth', 'Insight'];
+    const tableHeaders = ['Company', 'Price (USD)', '%Change', 'Year to Year Growth', 'Insight', 'actions'];
     const tableBody = this.buildTableBody(stockList);
     const stocksChangeData = this.computeTotalChange(stockList);
 
@@ -131,7 +139,6 @@ class StockList extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     stockList: state.stockList.stockList
   };

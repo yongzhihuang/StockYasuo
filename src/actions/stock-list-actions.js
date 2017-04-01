@@ -1,3 +1,4 @@
+import { filter } from 'lodash';
 import fetchStockUtil from '../utils/fetch-stock-util';
 
 function fetchingStockList(isLoading) {
@@ -58,6 +59,18 @@ export function addStockSymbolToList(stock) {
         currentStocks.push(stock);
         localStorage.stockList = currentStocks.join(',');
       }
+      dispatch(fetchStockList());
+    }
+  }
+}
+
+export function removeStockSymbolFromList(symbol) {
+  return (dispatch) => {
+    let currentStocks = localStorage.stockList;
+    if (currentStocks && symbol) {
+      currentStocks = currentStocks.split(',');
+      const updatedStockList = filter(currentStocks, stockSymbol => stockSymbol !== symbol);
+      localStorage.stockList = updatedStockList.join(',');
       dispatch(fetchStockList());
     }
   }

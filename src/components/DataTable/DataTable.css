@@ -3,6 +3,9 @@
   font-size: 12px;
   text-align: center;
   width: 100%;
+  border-top: solid 1px #f0f0f0;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 .data-table tr {
@@ -48,4 +51,11 @@
 
 .data-table td.wide-column {
   width: 250px;
+}
+
+@media all and (max-width: 636px) {
+  .data-table td.hide-for-small,
+  .data-table th.hide-for-small {
+    display: none;
+  }
 }

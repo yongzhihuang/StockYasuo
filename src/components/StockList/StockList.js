@@ -55,15 +55,15 @@ class StockList extends Component {
         <tr key={idx}>
           <td><a href={`http://finance.yahoo.com/quote/${stockSymbol}`} target="_blank">{stock.Name} ({stockSymbol})</a></td>
           <td><span className={gainOrLoss}>${price} ({stock.Change})</span></td>
-          <td><span className={gainOrLoss}>{stock.ChangeinPercent}</span></td>
-          <td>{stock.ChangeFromYearLow} ({stock.PercentChangeFromYearLow})</td>
-          <td>
+          <td className="hide-for-small"><span className={gainOrLoss}>{stock.ChangeinPercent}</span></td>
+          <td className="hide-for-small">{stock.ChangeFromYearLow} ({stock.PercentChangeFromYearLow})</td>
+          <td className="hide-for-small">
             <div>
             <a href={`http://www.dataroma.com/m/stock.php?sym=${stock.symbol}`} target="_blank">Ownership</a> <a href={`http://www.dataroma.com/m/activity.php?sym=${stock.symbol}&typ=a`} target="_blank">Activity</a> <a href={`http://www.dataroma.com/m/ins/ins.php?t=y&&sym=${stock.symbol}&o=fd&d=d`} target="_blank">Insider</a>
             </div>
           </td>
           <td>
-            <div className="btn-small" onClick={()=>this.onRemoveStock(stock.symbol)}>-</div>
+            <div className="btn-normal" onClick={()=>this.onRemoveStock(stock.symbol)}>-</div>
           </td>
         </tr>
       );
@@ -110,12 +110,12 @@ class StockList extends Component {
           </div>
           <div className="center-wrap">
             <h2>No Stocks available</h2>
-            <div className="btn-normal" onClick={this.onAddStock}>Add Stock</div>
+            <div className="btn-cta" onClick={this.onAddStock}>Add Stock</div>
           </div>
         </div>
       )
     }
-    const tableHeaders = ['Company', 'Price (USD)', '%Change', 'Year to Year Growth', 'Insight', 'actions'];
+    const tableHeaders = ['Company', 'Price (USD)', '%Change-hidesm', 'Year to Year Growth-hidesm', 'Insight-hidesm', 'Actions'];
     const tableBody = this.buildTableBody(stockList);
     const stocksChangeData = this.computeTotalChange(stockList);
 
@@ -129,10 +129,11 @@ class StockList extends Component {
           <h1 className="App-intro">StockYasuo</h1>
         </div>
         <div className="center-wrap">
-          <div className="btn-normal" onClick={this.onAddStock}>Add Stock</div>
+          <div className="btn-cta" onClick={this.onAddStock}>Add Stock</div>
         </div>
-        <DataBlocks data={stocksChangeData} stockList={stockList} />
         <DataTable tableHeaders={tableHeaders} tableBody={tableBody} />
+        {/*<DataBlocks data={stocksChangeData} stockList={stockList} />*/}
+
       </div>
     );
   }

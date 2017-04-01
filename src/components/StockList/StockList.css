@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.btn-normal {
+.btn-cta {
   background-color: tomato;
   padding: 15px;
   color: white;
@@ -11,7 +11,23 @@
   cursor: pointer;
 }
 
+.btn-normal {
+  border: 1px solid silver;
+  cursor: pointer;
+  display: inline;
+  font-size: 16px;
+  margin-right: 5px;
+  padding: 5px 10px;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
 .btn-normal:hover {
+  background-color: black;
+  color: white;
+}
+
+.btn-cta:hover {
   opacity: 0.8;
 }
 
@@ -21,4 +37,9 @@
 
 .loss {
   color: red;
+}
+
+
+.center-wrap {
+  margin: 15px 0;
 }

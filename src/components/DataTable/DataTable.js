@@ -7,7 +7,15 @@ class DataTable extends Component {
       return null;
     }
 
-    const tableHeadersDOM = this.props.tableHeaders.map((header, idx) => <th key={idx}>{header}</th>);
+    const tableHeadersDOM = this.props.tableHeaders.map((header, idx) => {
+      let hiddenClass = '';
+      if (header.indexOf('-hidesm') !== -1) {
+        hiddenClass = 'hide-for-small';
+      }
+      header = header.replace('-hidesm', '');
+      return <th className={hiddenClass} key={idx}>{header}</th>;
+    });
+
     const bodyDOM = this.props.tableBody;
 
     return (

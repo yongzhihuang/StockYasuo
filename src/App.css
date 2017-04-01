@@ -1,11 +1,10 @@
+a, a:visited {
+  color: #5c5c5c;
+  text-decoration: underline;
+}
 
 .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
 }
 
 .App-header {
@@ -25,9 +24,4 @@
   text-align: center;
   font-size: 15px;
   font-weight: normal;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }

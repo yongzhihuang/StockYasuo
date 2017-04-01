@@ -17,18 +17,15 @@ class StockList extends Component {
         'amzn',
         'aapl',
         'amd',
-        'mo',
         'brk-b',
         'msft',
         'nflx',
         'fb',
-        'gs',
         'googl',
         'adbe',
         'nvda',
         'amd',
-        'bac',
-        'v'
+        'bac'
       ],
       exchangeList: [
         '%5EGSPC',
@@ -84,8 +81,10 @@ class StockList extends Component {
     let totalPriceChange = 0;
     let totalPercentChange = 0;
     stockList.forEach((stock) => {
-      totalPriceChange += toNumber(stock.Change);
-      totalPercentChange += toNumber(stock.ChangeinPercent.replace('%', ''));
+      if (stock.Change && stock.ChangeinPercent) {
+        totalPriceChange += toNumber(stock.Change);
+        totalPercentChange += toNumber(stock.ChangeinPercent.replace('%', ''));
+      }
     });
 
     totalPriceChange = round(totalPriceChange, 2);
@@ -103,7 +102,6 @@ class StockList extends Component {
     if (!stockList || !stockList.length) {
       return <h1>Loading...</h1>
     }
-
     const tableHeaders = ['Company', 'Price (USD)', '%Change', 'Year to Year Growth', 'Insight'];
     const tableBody = this.buildTableBody(stockList);
     const stocksChangeData = this.computeTotalChange(stockList);
@@ -111,7 +109,6 @@ class StockList extends Component {
     // Change title to reflect stock amount
     const priceDisplay = (stocksChangeData.totalPriceChange >= 0) ? `+$${stocksChangeData.totalPriceChange}` : `-$${stocksChangeData.totalPriceChange}`;
     document.title = `${priceDisplay} Stock Yasuo - PentaTools`;
-
     return (
       <div className="stocklist-wrapper">
         <div className="App-header">

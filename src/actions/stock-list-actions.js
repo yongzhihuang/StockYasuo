@@ -23,7 +23,8 @@ function fetchStockListFailure(error) {
   };
 }
 
-export function fetchStockList(stockList) {
+export function fetchStockList() {
+  const stockList = fetchStockSymbols();
   return (dispatch) => {
     dispatch(fetchingStockList(true));
     fetchStockUtil(stockList)
@@ -36,4 +37,29 @@ export function fetchStockList(stockList) {
   }
 }
 
+function fetchStockSymbols() {
+  const currentStocks = localStorage.stockList;
+  if (!currentStocks) {
+    return [];
+  }
+  return currentStocks.split(',');
+}
+
+export function addStockSymbolToList(stock) {
+  return (dispatch) => {
+    let currentStocks = localStorage.stockList;
+    if (stock) {
+      if (!currentStocks) {
+        const stockList = [];
+        stockList.push(stock);
+        localStorage.stockList = stockList;
+      } else {
+        currentStocks = currentStocks.split(',');
+        currentStocks.push(stock);
+        localStorage.stockList = currentStocks.join(',');
+      }
+      dispatch(fetchStockList());
+    }
+  }
+}
 export default fetchStockList;

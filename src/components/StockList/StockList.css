@@ -1,3 +1,20 @@
+.center-wrap {
+  text-align: center;
+}
+
+.btn-normal {
+  background-color: tomato;
+  padding: 15px;
+  color: white;
+  width: 150px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.btn-normal:hover {
+  opacity: 0.8;
+}
+
 .gain {
   color: green;
 }

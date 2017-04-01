@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { get, map, toNumber, round } from 'lodash';
 import './StockList.css';
+import '../../App.css';
 
 import DataBlocks from '../DataBlocks/DataBlocks';
 import DataTable from '../DataTable/DataTable';
@@ -12,21 +13,9 @@ import * as stockListActions from '../../actions/stock-list-actions';
 class StockList extends Component {
   constructor(props) {
     super(props);
+    this.onAddStock = this.onAddStock.bind(this);
     this.state = {
-      stockList: [
-        'amzn',
-        'aapl',
-        'amd',
-        'brk-b',
-        'msft',
-        'nflx',
-        'fb',
-        'googl',
-        'adbe',
-        'nvda',
-        'amd',
-        'bac'
-      ],
+      stockList: [],
       exchangeList: [
         '%5EGSPC',
         '',
@@ -96,11 +85,27 @@ class StockList extends Component {
     };
   }
 
+  onAddStock() {
+    const stock = window.prompt('Enter stock symbol');
+
+    this.props.actions.addStockSymbolToList(stock);
+  }
+
   render() {
     const stockList = get(this.props, 'stockList');
 
     if (!stockList || !stockList.length) {
-      return <h1>Loading...</h1>
+      return (
+        <div className="stocklist-wrapper">
+          <div className="App-header">
+            <h1 className="App-intro">StockYasuo</h1>
+          </div>
+          <div className="center-wrap">
+            <h2>No Stocks available</h2>
+            <div className="btn-normal" onClick={this.onAddStock}>Add Stock</div>
+          </div>
+        </div>
+      )
     }
     const tableHeaders = ['Company', 'Price (USD)', '%Change', 'Year to Year Growth', 'Insight'];
     const tableBody = this.buildTableBody(stockList);
@@ -109,10 +114,14 @@ class StockList extends Component {
     // Change title to reflect stock amount
     const priceDisplay = (stocksChangeData.totalPriceChange >= 0) ? `+$${stocksChangeData.totalPriceChange}` : `-$${stocksChangeData.totalPriceChange}`;
     document.title = `${priceDisplay} Stock Yasuo - PentaTools`;
+
     return (
       <div className="stocklist-wrapper">
         <div className="App-header">
           <h1 className="App-intro">StockYasuo</h1>
+        </div>
+        <div className="center-wrap">
+          <div className="btn-normal" onClick={this.onAddStock}>Add Stock</div>
         </div>
         <DataBlocks data={stocksChangeData} stockList={stockList} />
         <DataTable tableHeaders={tableHeaders} tableBody={tableBody} />
@@ -121,7 +130,8 @@ class StockList extends Component {
   }
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
+  console.log(state);
   return {
     stockList: state.stockList.stockList
   };

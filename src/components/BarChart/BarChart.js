@@ -7,7 +7,7 @@ class BarChartViz extends Component {
     if (!this.props.data) {
       return null;
     }
-console.log(this.props.data);
+
     const margin = {top: 20, right: 20, bottom: 30, left: 40};
     return (
       <div className="barchart-viz">

@@ -64,8 +64,8 @@ class DataBlock extends Component {
     : <span className="loss"><b>{get(maxPriceChangeCompany, '[0].symbol').toUpperCase()}</b> (-${maxPriceChange})</span>;
 
     const loserDisplay = (minPriceChange > 0) ?
-    <span className="gain"><b>{get(minPriceChangeCompany, '[0].symbol')}</b> (+${minPriceChange})</span>
-    : <span className="loss"><b>{get(minPriceChangeCompany, '[0].symbol')}</b> (-${minPriceChange})</span>;
+    <span className="gain"><b>{get(minPriceChangeCompany, '[0].symbol').toUpperCase()}</b> (+${minPriceChange})</span>
+    : <span className="loss"><b>{get(minPriceChangeCompany, '[0].symbol').toUpperCase()}</b> (-${minPriceChange})</span>;
 
     return (
       <div className="data-blocks-wrapper">

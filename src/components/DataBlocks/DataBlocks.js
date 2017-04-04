@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { map, max, min, toNumber, filter, get, sortBy } from 'lodash';
-import BarChart from '../BarChart/BarChart';
+// import BarChart from '../BarChart/BarChart';
 import './DataBlock.css';
 
 class DataBlock extends Component {

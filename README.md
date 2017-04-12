@@ -5,15 +5,17 @@ URL: http://www.penta-code.com/tools/stockyasuo/
 
 ![stock yasuo](http://i.imgur.com/wIq6hmh.png)
 
-## Installation
-`yarn install`
+# Prerequisites
+PM2: `npm i pm2 -g`
 
-## Start
-`yarn start`
+# Development Setup
+```
+npm install
+npm start
+```
 
 ## Production Build
-`yarn run build`
-`node server`
+`npm run prod`
 
 ## MongoDB Server
 Follow installation here: https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04

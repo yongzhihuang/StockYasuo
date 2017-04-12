@@ -11,6 +11,10 @@ URL: http://www.penta-code.com/tools/stockyasuo/
 ## Start
 `yarn start`
 
+## Production Build
+`yarn run build`
+`node server`
+
 ## MongoDB Server
 Follow installation here: https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04
 then

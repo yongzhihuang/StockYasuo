@@ -1,0 +1,22 @@
+{
+	"apps": [{
+		"name"	: "StockYasuo",
+		"script": "server/index.js",
+		"instances": "0",
+		"exec_mode": "cluster_mode",
+		"min_uptime": 1000,
+		"listen_timeout": 5000,
+		"wait_ready": true,
+		"watch": false,
+		"merge_logs": true,
+		"log_file": "/dev/null",
+		"out_file": "/dev/null",
+		"error_file": "/dev/null",
+		"exec_interpreter": "node",
+		"env": {
+			"NODE_ENV": "production",
+			"PORT": 9000
+		},
+		"restart_delay": 4000
+	}]
+}

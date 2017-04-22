@@ -116,7 +116,7 @@ class StockList extends Component {
         </div>
       )
     }
-    const tableHeaders = ['Company', 'Price (USD)', '%Change-hidesm', '200 Day Avg', 'Year to Year Growth-hidesm', 'Insight-hidesm', 'Actions'];
+    const tableHeaders = ['Company', 'Price (USD)', '%Change-hidesm', '200 Day Avg-hidesm', 'Year to Year Growth-hidesm', 'Insight-hidesm', 'Actions'];
     const tableBody = this.buildTableBody(stockList);
     const stocksChangeData = this.computeTotalChange(stockList);
 
@@ -130,6 +130,7 @@ class StockList extends Component {
           <h1 className="App-intro">StockYasuo</h1>
           <h2 className="App-desc">Stock Manager, AI Advisor</h2>
         </div>
+
         <div className="center-wrap">
           <div className="btn-cta" onClick={this.onAddStock}>Add Stock</div>
         </div>

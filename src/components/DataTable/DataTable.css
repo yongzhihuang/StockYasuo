@@ -4,12 +4,13 @@
   text-align: center;
   width: 100%;
   border-top: solid 1px #f0f0f0;
+  padding: 0 5%;
   margin-top: 25px;
   margin-bottom: 25px;
 }
 
 .data-table tr {
-  color: $black;
+  color: black;
   font-size: 16px;
   font-weight: 400;
 }

@@ -86,7 +86,7 @@
 
   .newsfeed .sentiment {
     position: absolute;
-    right: 0%;
-    top: 5%;
+    left: 94%;
+    top: 50%;
   }
 }

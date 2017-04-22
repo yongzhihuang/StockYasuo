@@ -57,6 +57,7 @@ class StockList extends Component {
           <td><a href={`http://finance.yahoo.com/quote/${stockSymbol}`} target="_blank">{stock.Name} ({stockSymbol})</a></td>
           <td><span className={gainOrLoss}>${price} ({stock.Change})</span></td>
           <td className="hide-for-small"><span className={gainOrLoss}>{stock.ChangeinPercent}</span></td>
+          <td className="hide-for-small">${stock.TwoHundreddayMovingAverage}</td>
           <td className="hide-for-small">{stock.ChangeFromYearLow} ({stock.PercentChangeFromYearLow})</td>
           <td className="hide-for-small">
             <div>
@@ -115,7 +116,7 @@ class StockList extends Component {
         </div>
       )
     }
-    const tableHeaders = ['Company', 'Price (USD)', '%Change-hidesm', 'Year to Year Growth-hidesm', 'Insight-hidesm', 'Actions'];
+    const tableHeaders = ['Company', 'Price (USD)', '%Change-hidesm', '200 Day Avg', 'Year to Year Growth-hidesm', 'Insight-hidesm', 'Actions'];
     const tableBody = this.buildTableBody(stockList);
     const stocksChangeData = this.computeTotalChange(stockList);
 

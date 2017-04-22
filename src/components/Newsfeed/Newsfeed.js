@@ -26,8 +26,8 @@ class Newsfeed extends Component {
       return null;
     }
 
-    const newsfeedList = this.constructDigestFeed(this.props.newsfeed).map((item, idx) => <li key={idx}><a href={item.link} target="blank">{item.title}</a></li>);
-    // const listPickerOptionsDOM = this.props.newsfeed.map((list, idx) => <option key={idx} value={list}>{list}</option>)
+    // const newsfeedList = this.constructDigestFeed(this.props.newsfeed).map((item, idx) => <li key={idx}><a href={item.link} target="blank">{item.title}</a></li>);
+    const newsfeedList = this.constructDigestFeed(this.props.newsfeed).map((item, idx) => <li key={idx}><div className="newsfeed-item" dangerouslySetInnerHTML={{__html: item.description}}/></li>);
     return (
       <div className="newsfeed">
         <ul>

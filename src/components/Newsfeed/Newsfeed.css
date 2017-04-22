@@ -1,6 +1,8 @@
 .newsfeed {
   padding: 5px;
   background-color: #f9f9f9;
+  display: flex;
+  justify-content: flex-center;
 }
 
 .newsfeed ul {
@@ -10,21 +12,48 @@
 
 .newsfeed ul li {
   padding: 15px 0;
-  margin-bottom: 20px;
 }
 
 .newsfeed ul li a {
   text-decoration: none;
   position: relative;
-  padding: 15px;
-  border-left: 3px solid #333;
-  -webkit-transition: all .1s ease 0s;
-  transition: all .1s ease 0s;
   color: black;
 }
 
-.newsfeed ul li a:hover {
+.newsfeed .newsfeed-item {
+  border-left: 3px solid #333;
+  padding: 10px;
+  font-size: 17px;
+  transition: all .1s ease 0s;
+}
+
+.newsfeed .newsfeed-item:hover {
+  cursor: pointer;
   border-left: 6px solid #3b5998;
+}
+
+.newsfeed .newsfeed-item > div {
+  margin: 0 !important;
+}
+
+.newsfeed .newsfeed-item > div div{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 100% !important;
+}
+
+.newsfeed .newsfeed-item span {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.newsfeed .newsfeed-item div > a:first-of-type {
+  font-size: 22px !important;
+  font-weight: bold;
+}
+
+.newsfeed .newsfeed-item div > a:last-of-type {
+  text-decoration: underline;
 }
 
 @media all and (max-width: 636px) {

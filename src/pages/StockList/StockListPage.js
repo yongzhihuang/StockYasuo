@@ -10,7 +10,7 @@ class StockListPage extends Component {
      <div className="stocklist-page">
        <StockList />
 
-       <h2 className="center-wrap">News</h2>
+       <h2 className="center-wrap">Portfolio News</h2>
        <Newsfeed />
      </div>
    );

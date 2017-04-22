@@ -133,7 +133,7 @@ class StockList extends Component {
           <div className="btn-cta" onClick={this.onAddStock}>Add Stock</div>
         </div>
 
-        <DataBlocks data={stocksChangeData} stockList={stockList} />
+        {/*<DataBlocks data={stocksChangeData} stockList={stockList} />*/}
         <ListPicker />
         <DataTable tableHeaders={tableHeaders} tableBody={tableBody} />
 

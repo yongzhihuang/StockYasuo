@@ -14,7 +14,7 @@ export default function(stockList) {
 
 function fetchSingleNewsfeed(symbol) {
   return new P(function(resolve, reject) {
-    const feedEndpoint = `https://www.google.com/finance/company_news?q=${symbol}&output=rss`;
+    const feedEndpoint = `http://www.penta-code.com/api/financenews.php?symbol=${symbol}`;
     RSSToJson.load(feedEndpoint, function(err, rss){
       if (err) {
         reject(`error getting news for ${symbol}`);

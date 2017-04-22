@@ -9,15 +9,42 @@
 }
 
 .newsfeed ul li {
-  padding: 10px 0;
+  padding: 15px 0;
+  margin-bottom: 20px;
 }
 
 .newsfeed ul li a {
   text-decoration: none;
+  position: relative;
+  padding: 15px;
+  border-left: 3px solid #333;
+  -webkit-transition: all .1s ease 0s;
+  transition: all .1s ease 0s;
   color: black;
 }
 
 .newsfeed ul li a:hover {
-  text-decoration: underline;
-  color: #3b5998;
+  border-left: 6px solid #3b5998;
+}
+
+@media all and (max-width: 636px) {
+  .newsfeed ul {
+    padding: 5px;
+  }
+
+  .newsfeed ul li {
+    padding: 10px 0;
+    border-bottom: solid 3px white;
+    margin-bottom: 10px;
+  }
+
+  .newsfeed ul li a {
+    text-decoration: none;
+    position: relative;
+    padding: 0;
+    border-left: none;
+    -webkit-transition: all .1s ease 0s;
+    transition: all .1s ease 0s;
+    color: black;
+  }
 }

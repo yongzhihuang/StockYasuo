@@ -10,8 +10,6 @@ import DataTable from '../DataTable/DataTable';
 import ListPicker from '../ListPicker/ListPicker';
 
 import * as stockListActions from '../../actions/stock-list-actions';
-import * as newsfeedActions from '../../actions/newsfeed-actions';
-
 
 class StockList extends Component {
   constructor(props) {
@@ -40,7 +38,6 @@ class StockList extends Component {
 
   fetchStockPrices() {
     this.props.actions.fetchStockList();
-    // this.props.actions.fetchNewsfeed();
   }
 
   componentWillUnmount() {
@@ -153,7 +150,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({...stockListActions,...newsfeedActions}, dispatch)
+    actions: bindActionCreators(stockListActions, dispatch)
   }
 }
 

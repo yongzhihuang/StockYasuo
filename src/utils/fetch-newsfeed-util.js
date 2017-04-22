@@ -1,6 +1,5 @@
 import P from 'bluebird';
-import FeedMe from 'feedme';
-import http from 'http';
+import RSSToJson from 'rss-to-json';
 import { map } from 'lodash';
 
 
@@ -15,18 +14,16 @@ export default function(stockList) {
 
 function fetchSingleNewsfeed(symbol) {
   return new P(function(resolve, reject) {
-    const feedEndpoint = `//finance.yahoo.com/rss/headline?s=${symbol}`;
-    http.get(feedEndpoint, function(res) {
-      var parser = new FeedMe();
-      parser.on('title', function(title) {
-        console.log('title of feed is', title);
+    const feedEndpoint = `https://www.google.com/finance/company_news?q=${symbol}&output=rss`;
+    RSSToJson.load(feedEndpoint, function(err, rss){
+      if (err) {
+        reject(`error getting news for ${symbol}`);
+      }
+
+      resolve({
+        symbol,
+        news: rss.items
       });
-      parser.on('item', function(item) {
-        console.log();
-        console.log('news:', item.title);
-        console.log(item.description);
-      });
-      res.pipe(parser);
     });
   });
 }

@@ -1,0 +1,23 @@
+.newsfeed {
+  padding: 5px;
+  background-color: #f9f9f9;
+}
+
+.newsfeed ul {
+  list-style: none;
+  font-size: 23px;
+}
+
+.newsfeed ul li {
+  padding: 10px 0;
+}
+
+.newsfeed ul li a {
+  text-decoration: none;
+  color: black;
+}
+
+.newsfeed ul li a:hover {
+  text-decoration: underline;
+  color: #3b5998;
+}

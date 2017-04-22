@@ -14,7 +14,7 @@ class ListPicker extends Component {
       return null;
     }
 
-    const listPickerOptionsDOM = this.props.lists.map(list => <option value={list}>{list}</option>)
+    const listPickerOptionsDOM = this.props.lists.map((list, idx) => <option key={idx} value={list}>{list}</option>)
 
     return (
       <div className="list-picker">
@@ -28,7 +28,6 @@ class ListPicker extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   return {
     lists: state.fetchLists.lists
   };

@@ -58,7 +58,7 @@ class StockList extends Component {
           <td><a href={`http://finance.yahoo.com/quote/${stockSymbol}`} target="_blank">{stock.Name} ({stockSymbol})</a></td>
           <td><span className={gainOrLoss}>${price} ({stock.Change})</span></td>
           <td className="hide-for-small"><span className={gainOrLoss}>{stock.ChangeinPercent}</span></td>
-          <td className="hide-for-small">${stock.TwoHundreddayMovingAverage} (${twoHundredMovingDifference})</td>
+          <td className="hide-for-small">${stock.TwoHundreddayMovingAverage} (${twoHundredMovingDifference}) ({stock.PercentChangeFromTwoHundreddayMovingAverage})</td>
           <td className="hide-for-small">{stock.ChangeFromYearLow} ({stock.PercentChangeFromYearLow})</td>
           <td className="hide-for-small">
             <div>

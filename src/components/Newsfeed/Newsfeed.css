@@ -11,6 +11,7 @@
 }
 
 .newsfeed ul li {
+  position: relative;
   padding: 15px 0;
 }
 
@@ -18,6 +19,12 @@
   text-decoration: none;
   position: relative;
   color: black;
+}
+
+.newsfeed .sentiment {
+  position: absolute;
+  left: -35px;
+  top: 50%;
 }
 
 .newsfeed .newsfeed-item {
@@ -77,4 +84,9 @@
     border-left: none;
   }
 
+  .newsfeed .sentiment {
+    position: absolute;
+    right: 0%;
+    top: 5%;
+  }
 }

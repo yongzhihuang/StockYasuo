@@ -24,11 +24,15 @@ class Newsfeed extends Component {
 
   constructNewsFeedListDOM(newsfeed) {
     const newsfeedDOM = this.constructDigestFeed(newsfeed).map((item, idx) => {
-      const storySentiment = sentiment(item.description).score;
+      const sentimentScore = sentiment(item.description).score;
+      let sentimentImage = <img src="http://i.imgur.com/Mvfi7LJ.png" alt="Positive Sentiment" />;
+      if (sentimentScore <= 0) {
+        sentimentImage = <img src="http://i.imgur.com/ZF3svKf.png" alt="Negative Sentiment" />
+      }
       return (
         <li key={idx}>
-          <div className="sentiment">{storySentiment}</div>
           <div className="newsfeed-item" dangerouslySetInnerHTML={{__html: item.description.replace('href=', 'target="blank" href=')}}/>
+          <div className="sentiment">{sentimentImage}</div>
         </li>
       );
     });

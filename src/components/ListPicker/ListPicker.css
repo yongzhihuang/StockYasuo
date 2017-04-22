@@ -1,5 +1,5 @@
 .list-picker {
-  width: 100%;
+  width: 98%;
   text-align: right;
 }
 
@@ -10,4 +10,11 @@
   margin-right: 5px;
   min-width: 200px;
   text-transform: capitalize;
+}
+
+@media all and (max-width: 636px) {
+  .list-picker {
+    width: 100%;
+    text-align: center;
+  }
 }

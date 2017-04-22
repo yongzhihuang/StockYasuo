@@ -50,7 +50,6 @@
     "axios": "^0.15.3",
     "bluebird": "^3.5.0",
     "express": "^4.15.2",
-    "feedme": "^1.0.0",
     "install": "^0.8.7",
     "lodash": "4.17.4",
     "morgan": "^1.8.1",
@@ -64,6 +63,7 @@
     "redux": "3.6.0",
     "redux-thunk": "^2.2.0",
     "rss-to-json": "^1.0.2",
+    "sentiment": "^4.0.0",
     "yahoo-finance": "0.2.16"
   },
   "scripts": {

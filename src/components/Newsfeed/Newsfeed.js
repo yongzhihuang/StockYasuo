@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { flattenDeep } from 'lodash';
+import sentiment from 'sentiment';
 import './Newsfeed.css';
 
 import * as newsfeedActions from '../../actions/newsfeed-actions';
@@ -21,17 +22,29 @@ class Newsfeed extends Component {
     return flattenDeep(digestFeed);
   }
 
+  constructNewsFeedListDOM(newsfeed) {
+    const newsfeedDOM = this.constructDigestFeed(newsfeed).map((item, idx) => {
+      const storySentiment = sentiment(item.description).score;
+      return (
+        <li key={idx}>
+          <div className="sentiment">{storySentiment}</div>
+          <div className="newsfeed-item" dangerouslySetInnerHTML={{__html: item.description.replace('href=', 'target="blank" href=')}}/>
+        </li>
+      );
+    });
+
+    return newsfeedDOM;
+  }
+
   render() {
     if (!this.props.newsfeed) {
       return null;
     }
 
-    // const newsfeedList = this.constructDigestFeed(this.props.newsfeed).map((item, idx) => <li key={idx}><a href={item.link} target="blank">{item.title}</a></li>);
-    const newsfeedList = this.constructDigestFeed(this.props.newsfeed).map((item, idx) => <li key={idx}><div className="newsfeed-item" dangerouslySetInnerHTML={{__html: item.description}}/></li>);
     return (
       <div className="newsfeed">
         <ul>
-          {newsfeedList}
+          {this.constructNewsFeedListDOM(this.props.newsfeed)}
         </ul>
       </div>
     );

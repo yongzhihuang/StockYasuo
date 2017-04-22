@@ -52,12 +52,13 @@ class StockList extends Component {
       const gainOrLoss = (stock.Change.indexOf('-') === -1) ? 'gain' : 'loss';
       const stockSymbol = stock.symbol.toUpperCase();
       const price = stock.BidRealtime || stock.LastTradePriceOnly;
+      const twoHundredMovingDifference = round(price - stock.TwoHundreddayMovingAverage, 2);
       return (
         <tr key={idx}>
           <td><a href={`http://finance.yahoo.com/quote/${stockSymbol}`} target="_blank">{stock.Name} ({stockSymbol})</a></td>
           <td><span className={gainOrLoss}>${price} ({stock.Change})</span></td>
           <td className="hide-for-small"><span className={gainOrLoss}>{stock.ChangeinPercent}</span></td>
-          <td className="hide-for-small">${stock.TwoHundreddayMovingAverage}</td>
+          <td className="hide-for-small">${stock.TwoHundreddayMovingAverage} (${twoHundredMovingDifference})</td>
           <td className="hide-for-small">{stock.ChangeFromYearLow} ({stock.PercentChangeFromYearLow})</td>
           <td className="hide-for-small">
             <div>

@@ -6,6 +6,16 @@ function fetchListSuccess(list) {
   };
 }
 
+export function addList(listName) {
+  return (dispatch) => {
+    let currentList = localStorage.list;
+    currentList = currentList.split(',');
+    currentList.push(listName)
+    localStorage.list = currentList;
+    dispatch(fetchListSuccess(localStorage.list));
+  }
+}
+
 export function getLists() {
   let list = localStorage.list;
   return (dispatch) => {

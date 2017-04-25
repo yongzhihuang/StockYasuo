@@ -9,6 +9,14 @@ class ListPicker extends Component {
   componentWillMount() {
     this.props.actions.getLists();
   }
+
+  onAddList() {
+    const listName = prompt('What do you want to name this list?');
+    if (listName) {
+      this.props.actions.addList(listName);
+    }
+  }
+
   render() {
     if (!this.props.lists) {
       return null;
@@ -21,7 +29,7 @@ class ListPicker extends Component {
         <select>
           {listPickerOptionsDOM}
         </select>
-        <div className="btn-normal">+</div>
+        <div className="btn-normal" onClick={this.onAddList.bind(this)}>+</div>
       </div>
     );
   }

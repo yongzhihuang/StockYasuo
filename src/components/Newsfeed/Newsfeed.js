@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Sticky from 'react-stickynode';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import './Newsfeed.css';
@@ -43,9 +44,11 @@ class Newsfeed extends Component {
 
     return (
       <div className="newsfeed">
-        <ul className="newsfeed-stocklist">
-          {this.constructStockList(this.props.stockList)}
-        </ul>
+        <Sticky>
+          <ul className="newsfeed-stocklist">
+            {this.constructStockList(this.props.stockList)}
+          </ul>
+        </Sticky>
         <ul className="newsfeed-list">
           {this.constructNewsFeedListDOM(this.props.newsfeed)}
         </ul>

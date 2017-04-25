@@ -5,7 +5,7 @@ import { get, map, toNumber, round } from 'lodash';
 import './StockList.css';
 import '../../App.css';
 
-import DataBlocks from '../DataBlocks/DataBlocks';
+// import DataBlocks from '../DataBlocks/DataBlocks';
 import DataTable from '../DataTable/DataTable';
 import ListPicker from '../ListPicker/ListPicker';
 

@@ -1,21 +1,44 @@
 .newsfeed {
-  padding: 0 5%;
+  padding: 0 2%;
   background-color: #f9f9f9;
   display: flex;
   justify-content: flex-center;
 }
 
-.newsfeed ul {
+.newsfeed-stocklist {
   list-style: none;
-  font-size: 23px;
+  padding-right: 35px;
+  padding-top: 20px;
+  margin-right: 20px;
+  border-right: solid 1px #e2e2e2;
 }
 
-.newsfeed ul li {
+.newsfeed-stocklist li {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  transition: all .1s ease 0s;
+  cursor: pointer;
+  padding: 15px;
+}
+
+.newsfeed-stocklist li:hover {
+  background-color: #3b5998;
+  color: white;
+}
+
+.newsfeed ul.newsfeed-list {
+  list-style: none;
+  font-size: 18px;
+  padding-left: 5px
+}
+
+.newsfeed ul.newsfeed-list li {
   position: relative;
   padding: 15px 0;
 }
 
-.newsfeed ul li a {
+.newsfeed ul.newsfeed-list li a {
   text-decoration: none;
   position: relative;
   color: black;
@@ -28,7 +51,6 @@
 }
 
 .newsfeed .newsfeed-item {
-  border-left: 3px solid #333;
   padding: 10px;
   font-size: 17px;
   transition: all .1s ease 0s;
@@ -36,7 +58,6 @@
 
 .newsfeed .newsfeed-item:hover {
   cursor: pointer;
-  border-left: 6px solid #3b5998;
 }
 
 .newsfeed .newsfeed-item > div {

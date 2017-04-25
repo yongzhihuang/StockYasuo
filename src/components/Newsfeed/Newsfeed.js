@@ -1,38 +1,25 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { flattenDeep } from 'lodash';
-import sentiment from 'sentiment';
 import './Newsfeed.css';
 
 import * as newsfeedActions from '../../actions/newsfeed-actions';
 
 class Newsfeed extends Component {
   componentWillMount() {
-    this.props.actions.fetchNewsfeed();
-  }
+    const currentStocks = localStorage.stockList;
+    if (!currentStocks) {
+      return;
+    }
 
-  constructDigestFeed(newsfeedList) {
-    // returns an array with first 2 items of each entry
-    const digestFeed = [];
-    newsfeedList.forEach((item) => {
-      digestFeed.push(item.news.splice(0,2));
-    });
-
-    return flattenDeep(digestFeed);
+    this.props.actions.fetchNewsfeed(currentStocks.split(','));
   }
 
   constructNewsFeedListDOM(newsfeed) {
-    const newsfeedDOM = this.constructDigestFeed(newsfeed).map((item, idx) => {
-      const sentimentScore = sentiment(item.description).score;
-      let sentimentImage = <img src="http://i.imgur.com/Mvfi7LJ.png" alt="Positive Sentiment" />;
-      if (sentimentScore <= 0) {
-        sentimentImage = <img src="http://i.imgur.com/ZF3svKf.png" alt="Negative Sentiment" />
-      }
+    const newsfeedDOM = newsfeed.map((item, idx) => {
       return (
         <li key={idx}>
           <div className="newsfeed-item" dangerouslySetInnerHTML={{__html: item.description.replace('href=', 'target="blank" href=')}}/>
-          <div className="sentiment">{sentimentImage}</div>
         </li>
       );
     });
@@ -40,14 +27,26 @@ class Newsfeed extends Component {
     return newsfeedDOM;
   }
 
+  updateNewsFeed(symbol) {
+    const FILTER_BY_SINGLE = true;
+    this.props.actions.fetchNewsfeed([symbol], FILTER_BY_SINGLE);
+  }
+
+  constructStockList(stockList) {
+    return stockList.map((stock, idx) => <li key={idx} onClick={() => {this.updateNewsFeed(stock.Symbol)}}>{stock.Symbol}</li>);
+  }
+
   render() {
-    if (!this.props.newsfeed) {
+    if (!this.props.newsfeed || !this.props.stockList) {
       return null;
     }
 
     return (
       <div className="newsfeed">
-        <ul>
+        <ul className="newsfeed-stocklist">
+          {this.constructStockList(this.props.stockList)}
+        </ul>
+        <ul className="newsfeed-list">
           {this.constructNewsFeedListDOM(this.props.newsfeed)}
         </ul>
       </div>
@@ -57,7 +56,8 @@ class Newsfeed extends Component {
 
 function mapStateToProps(state) {
   return {
-    newsfeed: state.newsfeed.newsfeed
+    newsfeed: state.newsfeed.newsfeed,
+    stockList: state.stockList.stockList
   };
 }
 

@@ -7,10 +7,11 @@ function fetchingNewsfeed(isLoading) {
   };
 }
 
-function fetchNewsfeedSuccess(data) {
+function fetchNewsfeedSuccess(data, filterBySingle) {
   return {
     type: 'FETCH_NEWS_FEED_SUCCESS',
     data,
+    filterBySingle,
     isLoading: false
   };
 }
@@ -23,26 +24,18 @@ function fetchNewsfeedFailure(error) {
   };
 }
 
-export function fetchNewsfeed(symbol) {
-  const stockList = fetchStockSymbols().sort();
+export function fetchNewsfeed(symbols, filterBySingle) {
+  const stockList = symbols.sort();
   return (dispatch) => {
     dispatch(fetchingNewsfeed(true));
     fetchSingleNewsfeedUtil(stockList)
       .then(function fetchNewsfeedSuccessCallback(result) {
-        dispatch(fetchNewsfeedSuccess(result));
+        dispatch(fetchNewsfeedSuccess(result, filterBySingle));
       })
       .catch(function fetchNewsfeedFailureCallback(error) {
         dispatch(fetchNewsfeedFailure(error));
       });
   }
-}
-
-function fetchStockSymbols() {
-  const currentStocks = localStorage.stockList;
-  if (!currentStocks) {
-    return [];
-  }
-  return currentStocks.split(',');
 }
 
 

@@ -52,6 +52,10 @@
 }
 
 @media all and (max-width: 636px) {
+  .data-table {
+    padding: 0;
+  }
+
   .data-table td.hide-for-small,
   .data-table th.hide-for-small {
     display: none;

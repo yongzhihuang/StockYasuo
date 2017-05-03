@@ -10,6 +10,7 @@ import DataTable from '../DataTable/DataTable';
 import ListPicker from '../ListPicker/ListPicker';
 
 import * as stockListActions from '../../actions/stock-list-actions';
+import * as listPickerActions from '../../actions/list-picker-actions';
 
 class StockList extends Component {
   constructor(props) {
@@ -37,7 +38,8 @@ class StockList extends Component {
   }
 
   fetchStockPrices() {
-    this.props.actions.fetchStockList();
+    const activeList = this.props.fetchLists.activeList || window.localStorage.selectedList || 'owned';
+    this.props.actions.fetchStockList(activeList);
   }
 
   componentWillUnmount() {
@@ -94,11 +96,13 @@ class StockList extends Component {
 
   onAddStock() {
     const stock = window.prompt('Enter stock symbol');
-    this.props.actions.addStockSymbolToList(stock);
+    const activeList = this.props.fetchLists.activeList || window.localStorage.selectedList || 'owned';
+    this.props.actions.addStockSymbolToList(stock, activeList);
   }
 
   onRemoveStock(symbol) {
-    this.props.actions.removeStockSymbolFromList(symbol)
+    const activeList = this.props.fetchLists.activeList || window.localStorage.selectedList || 'owned';
+    this.props.actions.removeStockSymbolFromList(symbol, activeList)
   }
 
   render() {
@@ -113,6 +117,7 @@ class StockList extends Component {
           <div className="center-wrap">
             <h2>No Stocks available</h2>
             <div className="btn-cta" onClick={this.onAddStock}>Add Stock</div>
+            <ListPicker />
           </div>
         </div>
       )
@@ -147,13 +152,17 @@ class StockList extends Component {
 
 function mapStateToProps(state) {
   return {
-    stockList: state.stockList.stockList
+    stockList: state.stockList.stockList,
+    fetchLists: state.fetchLists
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(stockListActions, dispatch)
+    actions: bindActionCreators({
+      ...stockListActions,
+      ...listPickerActions
+    }, dispatch)
   }
 }
 

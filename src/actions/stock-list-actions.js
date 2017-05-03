@@ -24,8 +24,9 @@ function fetchStockListFailure(error) {
   };
 }
 
-export function fetchStockList() {
-  const stockList = fetchStockSymbols().sort();
+export function fetchStockList(listName) {
+
+  const stockList = fetchStockSymbols(listName).sort();
   return (dispatch) => {
     dispatch(fetchingStockList(true));
     fetchStockUtil(stockList)
@@ -38,40 +39,40 @@ export function fetchStockList() {
   }
 }
 
-function fetchStockSymbols() {
-  const currentStocks = localStorage.stockList;
+function fetchStockSymbols(listName) {
+  const currentStocks = localStorage[listName];
   if (!currentStocks) {
     return [];
   }
   return currentStocks.split(',');
 }
 
-export function addStockSymbolToList(stock) {
+export function addStockSymbolToList(stock, listName) {
   return (dispatch) => {
-    let currentStocks = localStorage.stockList;
+    let currentStocks = localStorage[listName];
     if (stock) {
       if (!currentStocks) {
         const stockList = [];
         stockList.push(stock);
-        localStorage.stockList = stockList;
+        localStorage[listName] = stockList;
       } else {
         currentStocks = currentStocks.split(',');
         currentStocks.push(stock);
-        localStorage.stockList = currentStocks.join(',');
+        localStorage[listName] = currentStocks.join(',');
       }
-      dispatch(fetchStockList());
+      dispatch(fetchStockList(listName));
     }
   }
 }
 
-export function removeStockSymbolFromList(symbol) {
+export function removeStockSymbolFromList(symbol, listName) {
   return (dispatch) => {
-    let currentStocks = localStorage.stockList;
+    let currentStocks = localStorage[listName];
     if (currentStocks && symbol) {
       currentStocks = currentStocks.split(',');
       const updatedStockList = filter(currentStocks, stockSymbol => stockSymbol !== symbol);
-      localStorage.stockList = updatedStockList.join(',');
-      dispatch(fetchStockList());
+      localStorage[listName] = updatedStockList.join(',');
+      dispatch(fetchStockList(listName));
     }
   }
 }

@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 import './Newsfeed.css';
 
 import * as newsfeedActions from '../../actions/newsfeed-actions';
+import * as listPickerActions from '../../actions/list-picker-actions';
 
 class Newsfeed extends Component {
   componentWillMount() {
-    const currentStocks = localStorage.stockList;
+    const activeList = this.props.fetchLists.activeList || window.localStorage.selectedList || 'owned';
+    const currentStocks = localStorage[activeList];
     if (!currentStocks) {
       return;
     }
@@ -43,15 +45,18 @@ class Newsfeed extends Component {
     }
 
     return (
-      <div className="newsfeed">
-        <Sticky>
-          <ul className="newsfeed-stocklist">
-            {this.constructStockList(this.props.stockList)}
+      <div>
+        <h2 className="center-wrap">Portfolio News</h2>
+        <div className="newsfeed">
+          <Sticky>
+            <ul className="newsfeed-stocklist">
+              {this.constructStockList(this.props.stockList)}
+            </ul>
+          </Sticky>
+          <ul className="newsfeed-list">
+            {this.constructNewsFeedListDOM(this.props.newsfeed)}
           </ul>
-        </Sticky>
-        <ul className="newsfeed-list">
-          {this.constructNewsFeedListDOM(this.props.newsfeed)}
-        </ul>
+        </div>
       </div>
     );
   }
@@ -60,13 +65,17 @@ class Newsfeed extends Component {
 function mapStateToProps(state) {
   return {
     newsfeed: state.newsfeed.newsfeed,
-    stockList: state.stockList.stockList
+    stockList: state.stockList.stockList,
+    fetchLists: state.fetchLists
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(newsfeedActions, dispatch)
+    actions: bindActionCreators({
+      ...newsfeedActions,
+      ...listPickerActions
+    }, dispatch)
   }
 }
 

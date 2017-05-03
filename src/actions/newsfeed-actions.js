@@ -25,8 +25,13 @@ function fetchNewsfeedFailure(error) {
 }
 
 export function fetchNewsfeed(symbols, filterBySingle) {
-  const stockList = symbols.sort();
+
   return (dispatch) => {
+    if (!symbols) {
+      dispatch(fetchNewsfeedFailure('No symbol specified'));
+      return;
+    }
+    const stockList = symbols.sort();
     dispatch(fetchingNewsfeed(true));
     fetchSingleNewsfeedUtil(stockList)
       .then(function fetchNewsfeedSuccessCallback(result) {

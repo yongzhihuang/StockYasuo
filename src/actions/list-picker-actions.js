@@ -29,4 +29,12 @@ export function getLists() {
   }
 }
 
+export function setActiveList(listName) {
+  return {
+    type: 'SET_ACTIVE_LIST',
+    data: listName,
+    isLoading: false
+  };
+}
+
 export default getLists;

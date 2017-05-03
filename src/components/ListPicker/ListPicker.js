@@ -20,12 +20,23 @@ class ListPicker extends Component {
     this.props.actions.getLists();
   }
 
+  fetchNewsFeed(selectedList) {
+    const currentStocks = localStorage[selectedList];
+
+    if (!currentStocks) {
+      this.props.actions.fetchNewsfeed();
+      return;
+    }
+    this.props.actions.fetchNewsfeed(currentStocks.split(','));
+  }
+
   onAddList() {
     const listName = prompt('What do you want to name this list?');
     if (listName) {
       this.props.actions.addList(listName);
       this.props.actions.fetchStockList(listName);
       window.localStorage.selectedList = listName;
+      this.fetchNewsFeed(listName);
       window.location.reload();
     }
   }
@@ -35,12 +46,7 @@ class ListPicker extends Component {
     window.localStorage.selectedList = selectedList;
     this.props.actions.setActiveList(selectedList);
     this.props.actions.fetchStockList(selectedList);
-    const currentStocks = localStorage[selectedList];
-    if (!currentStocks) {
-      this.props.actions.fetchNewsfeed();
-      return;
-    }
-    this.props.actions.fetchNewsfeed(currentStocks.split(','));
+    this.fetchNewsFeed(selectedList);
   }
 
   render() {

@@ -94,15 +94,27 @@ class StockList extends Component {
     };
   }
 
+  updateNewsfeed(activeList) {
+    const currentStocks = localStorage[activeList];
+
+    if (!currentStocks) {
+      this.props.actions.fetchNewsfeed();
+      return;
+    }
+    this.props.actions.fetchNewsfeed(currentStocks.split(','));
+  }
+
   onAddStock() {
     const stock = window.prompt('Enter stock symbol');
     const activeList = this.props.fetchLists.activeList || window.localStorage.selectedList || 'owned';
     this.props.actions.addStockSymbolToList(stock, activeList);
+    this.updateNewsfeed(activeList);
   }
 
   onRemoveStock(symbol) {
     const activeList = this.props.fetchLists.activeList || window.localStorage.selectedList || 'owned';
-    this.props.actions.removeStockSymbolFromList(symbol, activeList)
+    this.props.actions.removeStockSymbolFromList(symbol, activeList);
+    this.updateNewsfeed(activeList);
   }
 
   render() {

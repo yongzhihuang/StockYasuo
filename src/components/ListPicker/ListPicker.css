@@ -1,10 +1,16 @@
+.list-picker-wrapper {
+  margin-top: 30px;
+}
+
 .list-picker {
-  width: 98%;
   text-align: right;
 }
 
 .list-picker select {
   background: white;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
   padding: 5px;
   font-size: 15px;
   margin-right: 5px;

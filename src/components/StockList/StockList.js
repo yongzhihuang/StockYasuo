@@ -8,6 +8,9 @@ import '../../App.css';
 // import DataBlocks from '../DataBlocks/DataBlocks';
 import DataTable from '../DataTable/DataTable';
 import ListPicker from '../ListPicker/ListPicker';
+import SearchBox from '../SearchBox/SearchBox';
+import StockPreview from '../StockPreview/StockPreview';
+
 
 import * as stockListActions from '../../actions/stock-list-actions';
 import * as listPickerActions from '../../actions/list-picker-actions';
@@ -17,6 +20,7 @@ class StockList extends Component {
     super(props);
     this.onAddStock = this.onAddStock.bind(this);
     this.onRemoveStock = this.onRemoveStock.bind(this);
+    this.onSearch = this.onSearch.bind(this);
     this.state = {
       stockList: [],
       exchangeList: [
@@ -117,6 +121,10 @@ class StockList extends Component {
     this.updateNewsfeed(activeList);
   }
 
+  onSearch(e) {
+    const stockSymbol = e.target.value;
+  }
+
   render() {
     const stockList = get(this.props, 'stockList');
 
@@ -128,6 +136,7 @@ class StockList extends Component {
           </div>
           <div className="center-wrap">
             <h2>No Stocks available</h2>
+            <SearchBox />
             <div className="btn-cta" onClick={this.onAddStock}>Add Stock</div>
             <ListPicker />
           </div>
@@ -149,12 +158,24 @@ class StockList extends Component {
           <h2 className="App-desc">Stock Manager, AI Advisor</h2>
         </div>
 
-        <div className="center-wrap">
+        {/*<div className="center-wrap">
+          <SearchBox />
           <div className="btn-cta" onClick={this.onAddStock}>Add Stock</div>
-        </div>
+        </div>*/}
 
         {/*<DataBlocks data={stocksChangeData} stockList={stockList} />*/}
-        <ListPicker />
+        <div className="action-bar">
+          <div className="search-box-wrapper">
+            <SearchBox />
+          </div>
+
+          <div className="list-picker-wrapper">
+            <ListPicker />
+          </div>
+        </div>
+        <StockPreview />
+
+        <h2 className="center-wrap">Your Portfolio</h2>
         <DataTable tableHeaders={tableHeaders} tableBody={tableBody} />
 
       </div>

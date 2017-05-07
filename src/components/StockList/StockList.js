@@ -135,10 +135,7 @@ class StockList extends Component {
             <h1 className="App-intro">StockYasuo</h1>
           </div>
           <div className="center-wrap">
-            <h2>No Stocks available</h2>
             <SearchBox />
-            <div className="btn-cta" onClick={this.onAddStock}>Add Stock</div>
-            <ListPicker />
           </div>
         </div>
       )
@@ -165,17 +162,16 @@ class StockList extends Component {
 
         {/*<DataBlocks data={stocksChangeData} stockList={stockList} />*/}
         <div className="action-bar">
-          <div className="search-box-wrapper">
-            <SearchBox />
-          </div>
-
           <div className="list-picker-wrapper">
             <ListPicker />
+          </div>
+
+          <div className="search-box-wrapper">
+            <SearchBox />
           </div>
         </div>
         <StockPreview />
 
-        <h2 className="center-wrap">Your Portfolio</h2>
         <DataTable tableHeaders={tableHeaders} tableBody={tableBody} />
 
       </div>

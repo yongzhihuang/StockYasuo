@@ -39,7 +39,7 @@ class StockPreview extends Component {
     const stockSymbol = stock.symbol.toUpperCase();
     const price = stock.BidRealtime || stock.LastTradePriceOnly;
     const twoHundredMovingDifference = round(price - stock.TwoHundreddayMovingAverage, 2);
-    const tableHeaders = ['Company', 'Price (USD)', '%Change-hidesm', '200 Day Avg-hidesm', 'Year to Year Growth-hidesm', 'Insight-hidesm', 'Actions'];
+    const tableHeaders = ['Company', 'Price (USD)', '%Change-hidesm', '200 Day Avg-hidesm', 'Year to Year Growth-hidesm', 'PEG-hidesm', 'Insight-hidesm', 'Actions'];
     const tableBody = (
       <tr>
         <td><a href={`http://finance.yahoo.com/quote/${stockSymbol}`} target="_blank">{stock.Name} ({stockSymbol})</a></td>
@@ -47,6 +47,7 @@ class StockPreview extends Component {
         <td className="hide-for-small"><span className={gainOrLoss}>{stock.ChangeinPercent}</span></td>
         <td className="hide-for-small">${stock.TwoHundreddayMovingAverage} (${twoHundredMovingDifference}) ({stock.PercentChangeFromTwoHundreddayMovingAverage})</td>
         <td className="hide-for-small">{stock.ChangeFromYearLow} ({stock.PercentChangeFromYearLow})</td>
+        <td className="hide-for-small">{stock.PEGRatio}</td>
         <td className="hide-for-small">
           <div>
           <a href={`http://www.dataroma.com/m/stock.php?sym=${stock.symbol}`} target="_blank">Ownership</a> <a href={`http://www.dataroma.com/m/activity.php?sym=${stock.symbol}&typ=a`} target="_blank">Activity</a> <a href={`http://www.dataroma.com/m/ins/ins.php?t=y&&sym=${stock.symbol}&o=fd&d=d`} target="_blank">Insider</a>
